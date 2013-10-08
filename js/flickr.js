@@ -13,7 +13,6 @@ flickrAPI.images = function () {
             type: "GET",
             cache: true,
             dataType: 'jsonp',
-            async: false,
             success: function (data) {
    
                 
