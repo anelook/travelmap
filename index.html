@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Explore the world with HERE platform from Nokia</title>
+    <meta name="description" content="This is a webpage written as HERE Coding Challenge. It uses html5, javascript and HERE Maps API">
+    <meta name="viewport" content="width=device-width">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+    <!-- Normalize -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Nokia css -->
+    <link rel="stylesheet" type="text/css" href="http://developer.here.com/apiexplorer/examples/templates/js/exampleHelpers.css" />
+    <!-- todo, move to the end -->
+    <!-- By default we add ?with=all to load every package available, it's better to change this parameter to your use case. Options ?with=maps|positioning|places|placesdata|directions|datarendering|all -->
+    <script type="text/javascript" charset="UTF-8" src="http://js.cit.api.here.com/se/2.5.3/jsl.js?with=all"></script>
+    <!-- JavaScript for example container (NoteContainer & Logger)  -->
+    <script type="text/javascript" charset="UTF-8" src="http://developer.here.com/apiexplorer/examples/templates/js/exampleHelpers.js"></script>
+
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+    <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+    <!-- Content starts here -->
+    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Make your travelling map</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a data-toggle="modal" href="#placeModal">Add more places</a></li>
+                    <li><a data-toggle="modal" href="#helpModal">Need help?</a></li>
+                </ul>
+            </div>
+            <!-- /.nav-collapse -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.navbar -->
+
+    <div class="row">
+        <div class="col-md-9">
+            <div id="mapContainer"></div>
+            <div id="uiContainer"></div>
+        </div>
+        <div class="col-md-3">
+            <div class="sidebar-offcanvas" id="sidebar">
+                <div class="well sidebar-nav">
+                    <h2>Your places</h2>
+                        
+                    <a data-toggle="modal" href="#placeModal" class="btn btn-primary btn-large">Add more places</a>
+                    <ul id="placeList" class="list-unstyled">
+                    </ul>
+                </div>
+                <!--/.well -->
+            </div>
+        </div>
+    </div>
+
+    <!--/.container-->
+
+    <!-- Modal -->
+    <div class="modal" id="placeModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Add a place you have visited</h3>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div id="customSearchBox" class="main-search">
+		                    <span class ="caption">Search For Places:</span>
+		                    <div module="SearchBox">
+                                <!--todo move style-->
+			                    <input id="textPlace" rel="searchbox-input" class="search-box-bckgrnd" type="text" placeholder="Full address or just a name of a city and a country"  style="width: 100%"/>
+			                    <div rel="searchbox-list" class="search-list"></div>
+		                    </div>
+                            <label class="checkbox">
+                               <input id="closeOnAdd" type="checkbox" checked="checked"> Close after adding an item
+                            </label>
+	                    </div>
+                        <span class="help-block">You can enter full address, or just city name and country. The system will show you possible options based on your serach line.</span>
+                        <span id="lAddPlaceError" class="label label-danger">Danger</span>
+                        <span id="lAddPlaceSuccess" class="label label-success">Successfully saved</span>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a id="btnClose" href="#" class="btn" data-dismiss="modal">Close</a>
+                    <a id="btnAddPlace" href="#" class="btn btn-primary">Add</a>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+    <!-- Modal -->
+    <div class="modal" id="helpModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Need help?</h3>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <b>Idea</b>
+                       <p>The goal of this web page is to store and display a list of places a person has visited.
+                        Just click on the link "Add more places" and enter the name of the city or country.
+                        In case your browser allows geolocation, the first place is already preselected for you.
+                           </p>
+                        <b>How it works</b>
+                        <p>
+                            The data is stored in the local storage of the browser. Note, that this feature is only available in the latest versions of the browsers. 
+                        </p>
+                        <b>Existing issues</b>
+                        <p>
+                            The solution is still raw, so minor (and probably major) bugs are present. 
+                            It uses a responsive design and was tested in the latest versions of IE, Chrome, Firefox and Chrome mobile. I need to mention, that IE often has 
+                            issues retrieving information about maps and images.
+                            Due to time limitations, I haven't checked iOS, as well as older browsers, which do not support some HTML5 features.
+                            </p>
+                        <b>Further improvements</b>
+						<p>
+							There are several things, which I would like to improve further.
+						</p>
+                        <p>
+                            First of all, it is error handling and giving the user a more graceful feedback, when a city was not found or when his browser does not support some features.
+                            <br />
+                            Secondly, rewriting the removal method and avoid the unnecessary refresh of all markers. 
+                            <br />
+                            After this, making the images clickable and provide information bubbles. 
+                            <br />
+                            Last, but not the least is code refactoring and better coverage of the methods with unittests. 
+                            <br />
+                            And a lot of other issues and ideas.
+                        </p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a id="A1" href="#" class="btn" data-dismiss="modal">Close</a>
+                    <a id="A2" href="#" class="btn btn-primary">Add</a>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- Content ends here -->
+    <!-- JS opensource libraries -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <!-- JS custom code -->
+    <script src="js/nokia.js"></script>
+    <script src="js/flickr.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ui.js"></script>
+    <script type="text/javascript" id="exampleJsSource">
+
+        //---------------------------------------
+
+       
+
+        $(document).ready(function () {
+            ui.Home.pageWarmUp();
+        });
+
+
+    </script>
+</body>
+</html>

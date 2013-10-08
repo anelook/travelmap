@@ -1,0 +1,18 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Olena Kutsenko -- developer -- @ANestuk
+
+# THANKS
+
+    Many thanks to the creators of all libraries and APIs, which I have used here.
+	And also my friends, who were trying the solution and giving a feedback :)
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    Normalize.css, jQuery, Modernizr
+	Bootstrap
+	Jasmine
